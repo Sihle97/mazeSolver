@@ -108,10 +108,30 @@ class Maze
         @closedList << n
 
     end
+    #Finds start node and returns Y,X co-ords
+    def findS()
+        @gameMaze.each.with_index do |arr1, idx1|
+            arr1.each.with_index do |node, idx2|
+                if node.type == 'S'
+                    return [idx1, idx2]
+                end
+            end
+        end
+    end
+    #Finds end node and returns Y,X co-ords
+    def findE()
+        @gameMaze.each.with_index do |arr1, idx1|
+            arr1.each.with_index do |node, idx2|
+                if node.type == 'E'
+                    return [idx1, idx2]
+                end
+            end
+        end
+    end
 
 end
 
 test = Maze.new('maze.txt')
-print test.search(1,6)
+print test.find('S')
 
 
