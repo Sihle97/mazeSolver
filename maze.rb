@@ -45,11 +45,18 @@ class Maze
 
     #searches all surounding nodes and checks whether they're elligible terrain
     #at the end parent node gets removed from openList and added to closedList
+    #G and H values are also inserted here and F calculated
     def search(x,y)
+        #End co-ords
+        endCoOrds = self.findE
+        
         #top left
         if (x-1) >= 0 and (y-1) >= 0
             if @gameMaze[y-1][x-1].walkable?
                 @gameMaze[y-1][x-1].setParent(@gameMaze[y][x])
+                @gameMaze[y-1][x-1].setG('diagonal', @gameMaze[y][x])
+                @gameMaze[y-1][x-1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y-1][x-1].setF()
                 @openList << @gameMaze[y-1][x-1]
             end
         end
@@ -57,6 +64,9 @@ class Maze
         if (x+1) <= (@gameMaze[0].length-1) and (y-1) >= 0
             if @gameMaze[y-1][x+1].walkable?
                 @gameMaze[y-1][x+1].setParent(@gameMaze[y][x])
+                @gameMaze[y-1][x+1].setG('diagonal', @gameMaze[y][x])
+                @gameMaze[y-1][x+1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y-1][x+1].setF()
                 @openList << @gameMaze[y-1][x+1]
             end
         end
@@ -64,6 +74,9 @@ class Maze
         if (y-1) >= 0
             if @gameMaze[x][y-1].walkable?
                 @gameMaze[x][y-1].setParent(@gameMaze[y][x])
+                @gameMaze[x][y-1].setG('other', @gameMaze[y][x])
+                @gameMaze[x][y-1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[x][y-1].setF()
                 @openList << @gameMaze[x][y-1]
             end
         end
@@ -71,6 +84,9 @@ class Maze
         if (y+1) <= (@gameMaze.length-1) and (x+1) <= (@gameMaze[0].length-1)
             if @gameMaze[y+1][x+1].walkable?
                 @gameMaze[y+1][x+1].setParent(@gameMaze[y][x])
+                @gameMaze[y+1][x+1].setG('diagonal', @gameMaze[y][x])
+                @gameMaze[y+1][x+1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y+1][x+1].setF()
                 @openList << @gameMaze[y+1][x+1]
             end
         end
@@ -78,6 +94,9 @@ class Maze
         if (x+1) <= (@gameMaze[0].length-1)
             if @gameMaze[y][x+1].walkable?
                 @gameMaze[y][x+1].setParent(@gameMaze[y][x])
+                @gameMaze[y][x+1].setG('other', @gameMaze[y][x])
+                @gameMaze[y][x+1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y][x+1].setF()
                 @openList << @gameMaze[y][x+1]
             end
         end
@@ -85,6 +104,9 @@ class Maze
         if (y+1) <= (@gameMaze.length-1) and (x-1) >= 0
             if @gameMaze[y+1][x-1].walkable?
                 @gameMaze[y+1][x-1].setParent(@gameMaze[y][x])
+                @gameMaze[y+1][x-1].setG('diagonal', @gameMaze[y][x])
+                @gameMaze[y+1][x-1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y+1][x-1].setF()
                 @openList << @gameMaze[y+1][x-1]
             end
         end
@@ -92,6 +114,9 @@ class Maze
         if (y+1) <= (@gameMaze.length-1)
             if @gameMaze[y+1][x].walkable?
                 @gameMaze[y+1][x].setParent(@gameMaze[y][x])
+                @gameMaze[y+1][x].setG('other', @gameMaze[y][x])
+                @gameMaze[y+1][x].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y+1][x].setF()
                 @openList << @gameMaze[y+1][x]
             end
         end
@@ -99,6 +124,9 @@ class Maze
         if (x-1) >= 0
             if @gameMaze[y][x-1].walkable?
                 @gameMaze[y][x-1].setParent(@gameMaze[y][x])
+                @gameMaze[y][x-1].setG('other', @gameMaze[y][x])
+                @gameMaze[y][x-1].setH(endCoOrds[1],endCoOrds[0])
+                @gameMaze[y][x-1].setF()
                 @openList << @gameMaze[y][x-1]
             end
         end
@@ -132,6 +160,7 @@ class Maze
 end
 
 test = Maze.new('maze.txt')
-print test.find('S')
+print test.search(1,6)
+
 
 
