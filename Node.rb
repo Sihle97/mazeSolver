@@ -4,6 +4,7 @@ class Node
         @type = type
         @x = x
         @y = y
+        @parent = nil
     end
 
     def walkable?
@@ -17,4 +18,21 @@ class Node
     def type
         @type
     end
+
+    def setParent(parent)
+        @parent = parent
+    end
+
+    def getParent()
+        @parent
+    end
+
+    def getX
+        @x
+    end
+
+    def getY
+        @y
+    end
+
 end
