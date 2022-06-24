@@ -30,19 +30,19 @@ class Node
         @parent
     end
 
-    def getX
+    def x
         @x
     end
 
-    def getY
+    def y
         @y
     end
     #We'll give diagonal movement a cost of 14 and the rest a cost of 10
-    def setG(direction)
+    def setG(direction, parent)
         if direction == 'diagonal'
-            @g = 14
+            @g = parent.getG + 14
         elsif direction == 'other'
-            @g = 10
+            @g = parent.getG + 10
         end
     end
 
@@ -57,5 +57,9 @@ class Node
     def setF
         @f = @g + @h
     end
-    
+
+    def getF
+        @f
+    end
+
 end
