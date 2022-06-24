@@ -55,7 +55,7 @@ class Maze
         
         #top left
         if (current.x-1) >= 0 and (current.y-1) >= 0
-            if @gameMaze[current.y-1][current.x-1].walkable?
+            if @gameMaze[current.y-1][current.x-1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y-1][current.x-1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y-1][current.x-1].setG('diagonal', @gameMaze[current.y][current.x])
                 @gameMaze[current.y-1][current.x-1].setH(endCoOrds.x,endCoOrds.y)
@@ -65,7 +65,7 @@ class Maze
         end
         #top right
         if (current.x+1) <= (@gameMaze[0].length-1) and (current.y-1) >= 0
-            if @gameMaze[current.y-1][current.x+1].walkable?
+            if @gameMaze[current.y-1][current.x+1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y-1][current.x+1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y-1][current.x+1].setG('diagonal', @gameMaze[current.y][current.x])
                 @gameMaze[current.y-1][current.x+1].setH(endCoOrds.x,endCoOrds.y)
@@ -75,7 +75,7 @@ class Maze
         end
         #top middle
         if (current.y-1) >= 0
-            if @gameMaze[current.x][current.y-1].walkable?
+            if @gameMaze[current.x][current.y-1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.x][current.y-1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.x][current.y-1].setG('other', @gameMaze[current.y][current.x])
                 @gameMaze[current.x][current.y-1].setH(endCoOrds.x,endCoOrds.y)
@@ -85,7 +85,7 @@ class Maze
         end
         #bottom right
         if (current.y+1) <= (@gameMaze.length-1) and (current.x+1) <= (@gameMaze[0].length-1)
-            if @gameMaze[current.y+1][current.x+1].walkable?
+            if @gameMaze[current.y+1][current.x+1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y+1][current.x+1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x+1].setG('diagonal', @gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x+1].setH(endCoOrds.x,endCoOrds.y)
@@ -95,7 +95,7 @@ class Maze
         end
         #middle right
         if (current.x+1) <= (@gameMaze[0].length-1)
-            if @gameMaze[current.y][current.x+1].walkable?
+            if @gameMaze[current.y][current.x+1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y][current.x+1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y][current.x+1].setG('other', @gameMaze[current.y][current.x])
                 @gameMaze[current.y][current.x+1].setH(endCoOrds.x,endCoOrds.y)
@@ -105,7 +105,7 @@ class Maze
         end
         #bottom left
         if (current.y+1) <= (@gameMaze.length-1) and (current.x-1) >= 0
-            if @gameMaze[current.y+1][current.x-1].walkable?
+            if @gameMaze[current.y+1][current.x-1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y+1][current.x-1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x-1].setG('diagonal', @gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x-1].setH(endCoOrds.x,endCoOrds.y)
@@ -115,7 +115,7 @@ class Maze
         end
         #bottom middle
         if (current.y+1) <= (@gameMaze.length-1)
-            if @gameMaze[current.y+1][current.x].walkable?
+            if @gameMaze[current.y+1][current.x].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y+1][current.x].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x].setG('other', @gameMaze[current.y][current.x])
                 @gameMaze[current.y+1][current.x].setH(endCoOrds.x,endCoOrds.y)
@@ -125,7 +125,7 @@ class Maze
         end
         #left middle
         if (current.x-1) >= 0
-            if @gameMaze[current.y][current.x-1].walkable?
+            if @gameMaze[current.y][current.x-1].walkable? and !(@closedList.include? currentNode)
                 @gameMaze[current.y][current.x-1].setParent(@gameMaze[current.y][current.x])
                 @gameMaze[current.y][current.x-1].setG('other', @gameMaze[current.y][current.x])
                 @gameMaze[current.y][current.x-1].setH(endCoOrds.x,endCoOrds.y)
@@ -135,7 +135,7 @@ class Maze
         end
 
         n = @openList.delete(@gameMaze[current.y][current.x])
- 
+        print @openList
         @closedList << n
 
     end
@@ -174,6 +174,10 @@ class Maze
         @closedList << @openList[idxholder]
         @currentNode = @openList[idxholder]
         openList.delete_at(idxholder)
+    end
+
+    def currentNode
+        @currentNode
     end
 
 end
