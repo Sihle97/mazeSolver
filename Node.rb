@@ -8,6 +8,7 @@ class Node
         @f = 0
         @g = 0
         @h = 0
+        @fakeg = 0
     end
 
     def walkable?
@@ -44,6 +45,19 @@ class Node
         elsif direction == 'other'
             @g = parent.getG + 10
         end
+    end
+
+    def setFakeG(direction, parent)
+  
+        if direction == 'diagonal'
+            @fakeg = @g + 14
+        elsif direction == 'other'
+            @fakeg = @g + 10
+        end
+    end
+
+    def getFakeG
+        @fakeg
     end
 
     def getG
