@@ -23,6 +23,10 @@ class Node
         @type
     end
 
+    def setType(value)
+        @type = value
+    end
+
     def setParent(parent)
         @parent = parent
     end
